@@ -2,13 +2,14 @@ package com.inspire12.likelionbackend.module.core.completefuture.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
 @Configuration
-//@EnableAsync
+@EnableAsync
 public class CompleteFutureConfig {
     private static final int CORE_POOL_SIZE = 10;
     private static final int MAX_POOL_SIZE = 10;
