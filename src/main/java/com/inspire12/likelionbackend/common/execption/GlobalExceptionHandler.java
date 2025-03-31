@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     @ExceptionHandler(LikelionException.class)
     public ResponseEntity<String> handleCustomException(LikelionException e) {
-        log.error("likelion exception", e);
+        log.error("likelion exception - log에 표시", e);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(e.getMessage());
     }
@@ -29,6 +29,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGeneralException(Exception e) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("예상하지 못한 오류가 발생했습니다.");
+                .body("예상하지 못한 오류가 발생했습니다: " + e.getMessage());
     }
 }

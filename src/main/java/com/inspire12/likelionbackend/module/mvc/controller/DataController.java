@@ -23,7 +23,7 @@ public class DataController { // 뜬금 질문, 제가 왜 클래스명을 RestC
     @GetMapping("/throw")
     public ResponseEntity<OrderResponse> throwException(HttpServletRequest request) {
         throw new LikelionException();
-    }
+    }// 에러 실습
 
     @PostMapping("/order/{username}")
     public ResponseEntity<OrderResponse> getOrder(@RequestParam Long id, @PathVariable String username,
