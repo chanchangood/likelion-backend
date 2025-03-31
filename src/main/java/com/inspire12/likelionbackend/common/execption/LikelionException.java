@@ -8,7 +8,7 @@ public class LikelionException extends RuntimeException {
 
     public LikelionException() {
         super("likelion error: 500 커스텀 에러");
-        this.errorCode = ErrorCode.INTERNAL_SERVER_ERROR;
+        this.errorCode = ErrorCode.Like_Lion_Error;
     }
 
     public LikelionException(ErrorCode errorCode) {
