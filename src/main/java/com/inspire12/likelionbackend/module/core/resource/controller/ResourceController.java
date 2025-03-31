@@ -3,6 +3,8 @@ package com.inspire12.likelionbackend.module.core.resource.controller;
 
 import com.inspire12.likelionbackend.module.core.resource.model.ResourceRequest;
 import com.inspire12.likelionbackend.module.core.resource.service.ResourceService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +13,15 @@ import java.io.IOException;
 
 @RequestMapping("/resource")
 @RestController
+@RequiredArgsConstructor
 public class ResourceController {
+
+    private final ResourceService resourceService;
 
 
     @GetMapping("/load")
     public String load(String resourceName) throws IOException {
+        return resourceService.load(resourceName);
     }
 
     @PostMapping("/write")
@@ -25,6 +31,6 @@ public class ResourceController {
 
     @GetMapping("/load/image")
     public ResponseEntity<byte[]> loadImage() throws IOException {
-
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(resourceService.loadImage());
     }
 }
