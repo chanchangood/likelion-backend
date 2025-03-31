@@ -13,14 +13,14 @@ import java.util.concurrent.Executor;
 
 @RequiredArgsConstructor
 @Service
-public class ThreadService {
+public class ThreadService { //동기적인 서비스
     private final @Qualifier("customThreadPoolExecutor") Executor executor;
     private final Logger log = LoggerFactory.getLogger(this.getClass().getName());
     private final ThreadAsyncService threadAsyncService;
 
     public void executeThreads() {
         log.info("executing Exec Thread Name .. [{}]", Thread.currentThread().getName());
-        Runnable runnable = () -> {
+        Runnable runnable = () -> {//함수형 프로그래밍
             try {
                 log.info("executing Thread Name .. [{}]", Thread.currentThread().getName());
                 Thread.sleep(1000); // 1초간 정지

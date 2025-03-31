@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class ThreadAsyncService {
+public class ThreadAsyncService { // 비동기 서비스
     private final Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
-//    @Async
+    @Async
     public void getHello(){
         log.info("executing Thread Name .. [{}]", Thread.currentThread().getName());
         try {
