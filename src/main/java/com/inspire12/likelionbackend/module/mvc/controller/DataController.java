@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,15 +33,15 @@ public class DataController { // 뜬금 질문, 제가 왜 클래스명을 RestC
         String query = request.getQueryString(); // 쿼리 파라미터
         String header = request.getHeader("User-Agent"); // 특정 헤더 값
         String clientIp = request.getRemoteAddr();
-        log.info("메서드: {}\n경로: {}\n쿼리: {}\nUser-Agent 헤더: {}\n ClientIp: {}",
+        log.info("메서드: {}\n경로: {}\n쿼리: {}\nUser-Agent 헤더: {}\nClientIp: {}",
                 method, uri, query, header, clientIp);
 
-        log.info("param {}", id);
-        log.info("pathVariable {}", username);
-        log.info("body {}", orderRequest);
-        log.info("header {}", headers);
+        log.info("param: {}", id);
+        log.info("pathVariable: {}", username);
+        log.info("body: {}", orderRequest.toString());
+        log.info("header: {}", headers);
         if (id == null || userId == null || orderRequest == null || username == null || customer == null) {
-            return ResponseEntity.status(500).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
         return ResponseEntity.ok(new OrderResponse(userId, orderRequest.getProductId(), LocalDateTime.now()));
