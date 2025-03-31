@@ -20,8 +20,11 @@ public class ResourceController {
 
 
     @GetMapping("/load")
-    public String load(String resourceName) throws IOException {
-        return resourceService.load(resourceName);
+    public ResponseEntity<String> load(String resourceName) throws IOException {
+        return ResponseEntity
+            .ok()
+//            .contentType()
+            .body(resourceService.load(resourceName));
     }
 
     @PostMapping("/write")
@@ -31,6 +34,6 @@ public class ResourceController {
 
     @GetMapping("/load/image")
     public ResponseEntity<byte[]> loadImage() throws IOException {
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(resourceService.loadImage());
+        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.IMAGE_PNG).body(resourceService.loadImage());
     }
 }
