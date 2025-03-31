@@ -15,6 +15,8 @@ public class EnvApplicationPlaygroundService {
     private final CustomEnvProperties customEnvProperties;
     private final ServerPortProperties serverPortProperties;
 
+    @Value("${custom.env}")
+    private String env;
 
     public EnvApplicationPlaygroundService(CustomEnvProperties customEnvProperties, ServerPortProperties serverPortProperties) {
         this.customEnvProperties = customEnvProperties;
@@ -23,11 +25,17 @@ public class EnvApplicationPlaygroundService {
 
     public String getCustomValue() {
         // TODO
+        log.info("env: {}", env);
+        log.info("serverPort: {}", serverPortProperties.getPort());
+        return customEnvProperties.getEnv();
     }
 
 
     public String getServerPort() {
         // TODO
+        log.info("env: {}", customEnvProperties.getEnv());
+        log.info("serverPort: {}", serverPortProperties.getPort());
+        return serverPortProperties.getPort();
     }
 
 }

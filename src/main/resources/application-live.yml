@@ -14,7 +14,7 @@ spring:
     name: likelion-backend
 
 custom:
-  env: live
-#  env: ${CUSTOM_ENV:live}
+#  env: live
+  env: ${CUSTOM_ENV:live}
 
 
