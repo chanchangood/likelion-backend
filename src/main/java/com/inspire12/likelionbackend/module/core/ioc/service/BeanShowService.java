@@ -20,5 +20,6 @@ public class BeanShowService {
 
         CustomAnnotationService myService = context.getBean(CustomAnnotationService.class);
         myService.sayName();
+        // Spring 없이도 이렇게 빈을 생성할 수 있다. ApplicationContext로 설정 정보를 읽고 빈을 생성하고 관리되도록 등록할 수 있다.
     }
 }

@@ -9,6 +9,6 @@ public class CustomAnnotationService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public void sayName() {
-        logger.info(this.getClass().getName());
+        logger.info(this.getClass().getName() + "호출12345");
     }
 }
