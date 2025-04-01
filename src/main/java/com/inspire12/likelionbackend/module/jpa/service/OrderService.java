@@ -13,6 +13,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class OrderService {
+
     @PersistenceContext
     private EntityManager em;
 
@@ -31,7 +34,7 @@ public class OrderService {
     @Transactional(readOnly = true)
     public OrderResponse getOrder(Long orderId) {
         OrderEntity order = orderJpaRepository.findById(orderId)
-                .orElseThrow(() -> new EntityNotFoundException("주문 없음"));
+            .orElseThrow(() -> new EntityNotFoundException("주문 없음"));
         return OrderMapper.fromEntity(order);
     }
 
@@ -45,14 +48,14 @@ public class OrderService {
     @Transactional
     public void deleteOrder(Long orderId) {
         OrderEntity order = orderJpaRepository.findById(orderId)
-                .orElseThrow(() -> new EntityNotFoundException("주문 없음"));
+            .orElseThrow(() -> new EntityNotFoundException("주문 없음"));
         orderJpaRepository.delete(order);
     }
 
     @Transactional
     public OrderResponse updateTotalAmount(Long orderId, Integer newAmount) {
         OrderEntity order = orderJpaRepository.findById(orderId)
-                .orElseThrow(() -> new EntityNotFoundException("주문 없음"));
+            .orElseThrow(() -> new EntityNotFoundException("주문 없음"));
         order.changeTotalAmount(newAmount);
         return OrderMapper.fromEntity(order);
     }
@@ -71,14 +74,17 @@ public class OrderService {
     }
 
 
-
-    public OrderListResponse getOrderByPager(int page, int size, String sortBy, String direction) {
+    //    public OrderListResponse getOrderByPager(int page, int size, String sortBy, String direction) {
+//        /**  TODO **/
+//        String jpql = "SELECT o FROM OrderEntity o order by o." + sortBy + " " + direction;
+//        List<OrderEntity> resultList = em.createQuery(jpql, OrderEntity.class)
+//                .setFirstResult(page * size)
+//                .setMaxResults(size)
+//                .getResultList();
+    public OrderListResponse getOrderByPager(Pageable pageable) {
         /**  TODO **/
-        String jpql = "SELECT o FROM OrderEntity o order by o." + sortBy + " " + direction;
-        List<OrderEntity> resultList = em.createQuery(jpql, OrderEntity.class)
-                .setFirstResult(page * size)
-                .setMaxResults(size)
-                .getResultList();
+//        List<OrderEntity> resultList = orderJpaRepository.findAllBy(pageable).getContent();
+        Page<OrderEntity> resultList = orderJpaRepository.findAllBy(pageable);/// 이 방식이 더 좋다! iterable 하기 때문에
         List<OrderResponse> orderResponses = new ArrayList<>();
         for (OrderEntity orderEntity : resultList) {
             orderResponses.add(OrderMapper.fromEntity(orderEntity));
