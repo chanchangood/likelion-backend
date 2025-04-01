@@ -1,5 +1,6 @@
 package com.inspire12.likelionbackend.module.jpa.repository;
 
+import com.inspire12.likelionbackend.module.jpa.model.dto.OrderSum;
 import com.inspire12.likelionbackend.module.jpa.model.dto.OrderSummary;
 import com.inspire12.likelionbackend.module.jpa.model.entity.OrderEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,6 +22,9 @@ public interface OrderJpaRepository extends JpaRepository<OrderEntity, Long> {
     List<OrderSummary> findOrderSummariesByCustomerId(@Param("customerId") Long customerId);
 
     // TODO
-    @Query("select sum(o.totalAmount) from OrderEntity o where o.customerId=:customerId")
-    Long sumAmountByUserId(Long customerId);
+    @Query("SELECT new com.inspire12.likelionbackend.module.jpa.model.dto.OrderSum(o.customerId, sum(o.totalAmount))"
+        + " from OrderEntity o where o.customerId=:customerId")
+    OrderSum sumAmountByUserId(Long customerId);
+
+
 }
