@@ -11,6 +11,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 @Component
 public class UserContextInterceptor implements HandlerInterceptor {
+
     private final Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
     @Override
