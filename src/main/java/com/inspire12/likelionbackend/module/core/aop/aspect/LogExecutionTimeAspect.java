@@ -3,15 +3,20 @@ package com.inspire12.likelionbackend.module.core.aop.aspect;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 
 @Aspect
 @Component
+//@Order(2)
 public class LogExecutionTimeAspect {
+
     private static final Logger log = LoggerFactory.getLogger("LogExecutionTimeAspect");
+
     @Around("@annotation(com.inspire12.likelionbackend.module.core.aop.aspect.LogExecutionTime)")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
         /*TODO
@@ -22,8 +27,9 @@ public class LogExecutionTimeAspect {
         String username = (args.length > 0 && args[0] instanceof String) ?  (String) args[0]: "unknown";
         log.info("사용자 등록 시작 - username: {}", username);
         long startTime = System.currentTimeMillis();
+        Object proceed = joinPoint.proceed();
         long endTime = System.currentTimeMillis();
-        log.info("사용자 등록 완료 - username: {} {}", username, endTime - startTime);
+        log.info("사용자 등록 완료 - username: {} / 걸린 시간: {}ms", username, endTime - startTime);
         return proceed;
     }
 }
